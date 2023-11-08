@@ -76,13 +76,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="processing" class="level2">
 <h2 class="anchored" data-anchor-id="processing">Processing</h2>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-08-24T20:41:34.003640Z&quot;,&quot;start_time&quot;:&quot;2023-08-24T20:41:33.967263Z&quot;}" data-execution_count="11">
-<div class="cell-output cell-output-stderr">
-<pre><code>INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre>
-</div>
-</div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-08-24T20:41:35.144787Z&quot;,&quot;start_time&quot;:&quot;2023-08-24T20:41:34.938255Z&quot;}" data-execution_count="15">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.193733Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.187832Z&quot;}" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -97,16 +91,51 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">RUNNING</td>
-<td>781</td>
+<td data-quarto-table-cell-role="th">FINISHED</td>
+<td>1424</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">FAILED</td>
-<td>657</td>
+<td data-quarto-table-cell-role="th">RUNNING</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.203467Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.193432Z&quot;}" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">params.train_path</th>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">status</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">f2</td>
 <td data-quarto-table-cell-role="th">FINISHED</td>
-<td>482</td>
+<td>480</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td data-quarto-table-cell-role="th">FINISHED</td>
+<td>480</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">n3</td>
+<td data-quarto-table-cell-role="th">FINISHED</td>
+<td>464</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">RUNNING</td>
+<td>16</td>
 </tr>
 </tbody>
 </table>
@@ -118,12 +147,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <section id="better-or-equal-rf" class="level3">
 <h3 class="anchored" data-anchor-id="better-or-equal-rf">Better or equal RF</h3>
 <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">(with default params - 100 estimators)</a></p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-08-24T20:41:35.725409Z&quot;,&quot;start_time&quot;:&quot;2023-08-24T20:41:35.172523Z&quot;}" data-execution_count="17">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.272396Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.204172Z&quot;}" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <p><strong>All across</strong></p>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>0.2012448132780083</code></pre>
+<pre><code>0.18117977528089887</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><strong>Grouped by complexity_measure and base_clf</strong></p>
@@ -144,35 +173,55 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">f2</td>
-<td data-quarto-table-cell-role="th">knn</td>
-<td>0.255814</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">nb</td>
-<td>0.113636</td>
-</tr>
-<tr class="odd">
-<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">f2</td>
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.189189</td>
+<td>0.233333</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.195122</td>
+<td>0.200000</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.142857</td>
+<td>0.166667</td>
 </tr>
 <tr class="even">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">n3</td>
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.116667</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.241667</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.296296</td>
+<td>0.200000</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.274510</td>
+<td>0.183333</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.100000</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">n3</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.232759</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>0.206897</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>0.189655</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.103448</td>
 </tr>
 </tbody>
 </table>
@@ -195,11 +244,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
-<td>0.205357</td>
+<td>0.182584</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>0.197674</td>
+<td>0.179775</td>
 </tr>
 </tbody>
 </table>
@@ -222,15 +271,15 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.1</td>
-<td>0.206731</td>
+<td>0.260417</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.3</td>
-<td>0.162162</td>
+<td>0.154661</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0.5</td>
-<td>0.346154</td>
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>0.127119</td>
 </tr>
 </tbody>
 </table>
@@ -253,15 +302,19 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.189189</td>
+<td>0.235955</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.243243</td>
+<td>0.202247</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.161435</td>
+<td>0.179775</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.106742</td>
 </tr>
 </tbody>
 </table>
@@ -270,12 +323,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 </section>
 <section id="better-than-dt-with-default-params---no-max-depth" class="level3">
 <h3 class="anchored" data-anchor-id="better-than-dt-with-default-params---no-max-depth">Better than DT <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">(with default params - no max depth)</a></h3>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-08-24T20:41:35.933392Z&quot;,&quot;start_time&quot;:&quot;2023-08-24T20:41:35.510958Z&quot;}" data-execution_count="18">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.328584Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.221032Z&quot;}" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <p><strong>All across</strong></p>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>0.3941908713692946</code></pre>
+<pre><code>0.2654494382022472</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><strong>Grouped by complexity_measure and base_clf</strong></p>
@@ -296,35 +349,55 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">f2</td>
-<td data-quarto-table-cell-role="th">knn</td>
-<td>0.418605</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">nb</td>
-<td>0.363636</td>
-</tr>
-<tr class="odd">
-<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">f2</td>
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.324324</td>
+<td>0.166667</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.353659</td>
+<td>0.383333</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.369048</td>
+<td>0.300000</td>
 </tr>
 <tr class="even">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">n3</td>
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.183333</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.183333</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.481481</td>
+<td>0.416667</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.470588</td>
+<td>0.333333</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.158333</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">n3</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.163793</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>0.413793</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>0.327586</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.155172</td>
 </tr>
 </tbody>
 </table>
@@ -347,11 +420,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
-<td>0.392857</td>
+<td>0.265449</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>0.395349</td>
+<td>0.265449</td>
 </tr>
 </tbody>
 </table>
@@ -374,15 +447,15 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.1</td>
-<td>0.365385</td>
+<td>0.225000</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.3</td>
-<td>0.360360</td>
+<td>0.286017</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0.5</td>
-<td>0.653846</td>
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>0.286017</td>
 </tr>
 </tbody>
 </table>
@@ -405,15 +478,1537 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.324324</td>
+<td>0.171348</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">knn</td>
-<td>0.409910</td>
+<td>0.404494</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">nb</td>
-<td>0.390135</td>
+<td>0.320225</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.165730</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.332052Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.245757Z&quot;}" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">status</th>
+<th data-quarto-table-cell-role="th">params.train_path</th>
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th">metrics.dt_acc</th>
+<th data-quarto-table-cell-role="th">metrics.rf_acc</th>
+<th data-quarto-table-cell-role="th">metrics.perceptron_acc</th>
+<th data-quarto-table-cell-role="th">metrics.acc</th>
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">better_equal_rf</th>
+<th data-quarto-table-cell-role="th">better_than_dt</th>
+<th data-quarto-table-cell-role="th">dataset_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/chess-5-5tra.csv</td>
+<td>l3</td>
+<td>nb</td>
+<td>0.998435</td>
+<td>0.996870</td>
+<td>0.945227</td>
+<td>0.627543</td>
+<td>25</td>
+<td>0.1</td>
+<td>False</td>
+<td>False</td>
+<td>chess</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/chess-5-5tra.csv</td>
+<td>l3</td>
+<td>nb</td>
+<td>0.998435</td>
+<td>0.996870</td>
+<td>0.945227</td>
+<td>0.671362</td>
+<td>25</td>
+<td>0.3</td>
+<td>False</td>
+<td>False</td>
+<td>chess</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/chess-5-5tra.csv</td>
+<td>l3</td>
+<td>nb</td>
+<td>0.998435</td>
+<td>0.996870</td>
+<td>0.945227</td>
+<td>0.599374</td>
+<td>25</td>
+<td>0.4</td>
+<td>False</td>
+<td>False</td>
+<td>chess</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/chess-5-5tra.csv</td>
+<td>l3</td>
+<td>nb</td>
+<td>0.998435</td>
+<td>0.996870</td>
+<td>0.945227</td>
+<td>0.599374</td>
+<td>10</td>
+<td>0.4</td>
+<td>False</td>
+<td>False</td>
+<td>chess</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/chess-5-5tra.csv</td>
+<td>l3</td>
+<td>nb</td>
+<td>0.998435</td>
+<td>0.996870</td>
+<td>0.945227</td>
+<td>0.671362</td>
+<td>10</td>
+<td>0.3</td>
+<td>False</td>
+<td>False</td>
+<td>chess</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1435</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/breast-5-2tra.csv</td>
+<td>f2</td>
+<td>perceptron</td>
+<td>0.696429</td>
+<td>0.732143</td>
+<td>0.696429</td>
+<td>0.589286</td>
+<td>25</td>
+<td>0.3</td>
+<td>False</td>
+<td>False</td>
+<td>breast</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1436</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/breast-5-2tra.csv</td>
+<td>f2</td>
+<td>perceptron</td>
+<td>0.696429</td>
+<td>0.732143</td>
+<td>0.696429</td>
+<td>0.696429</td>
+<td>25</td>
+<td>0.1</td>
+<td>False</td>
+<td>False</td>
+<td>breast</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1437</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/breast-5-2tra.csv</td>
+<td>f2</td>
+<td>perceptron</td>
+<td>0.696429</td>
+<td>0.732143</td>
+<td>0.696429</td>
+<td>0.589286</td>
+<td>10</td>
+<td>0.4</td>
+<td>False</td>
+<td>False</td>
+<td>breast</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1438</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/breast-5-2tra.csv</td>
+<td>f2</td>
+<td>perceptron</td>
+<td>0.696429</td>
+<td>0.732143</td>
+<td>0.696429</td>
+<td>0.589286</td>
+<td>10</td>
+<td>0.3</td>
+<td>False</td>
+<td>False</td>
+<td>breast</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1439</td>
+<td>FINISHED</td>
+<td>../datasets/notebooks/processed/breast-5-2tra.csv</td>
+<td>f2</td>
+<td>perceptron</td>
+<td>0.696429</td>
+<td>0.732143</td>
+<td>0.696429</td>
+<td>0.696429</td>
+<td>10</td>
+<td>0.1</td>
+<td>False</td>
+<td>False</td>
+<td>breast</td>
+</tr>
+</tbody>
+</table>
+
+<p>1424 rows × 13 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.332147Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.256380Z&quot;}" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x103199d60&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.641188Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.508488Z&quot;}" data-execution_count="18">
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/bgulowaty/studia/projekty/quad-splits/.venv/lib/python3.8/site-packages/scipy/stats/_morestats.py:3337: UserWarning: Exact p-value calculation does not work if there are zeros. Switching to normal approximation.
+  warnings.warn("Exact p-value calculation does not work if there are "</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>dataset_name  params.base_clf
+automobile    dt                 1.000000
+              knn                0.000008
+              nb                 0.000008
+              perceptron         0.000008
+balance       dt                 0.000973
+                                   ...   
+wisconsin     perceptron         0.351360
+yeast         dt                 0.007167
+              knn                0.000008
+              nb                 0.000008
+              perceptron         0.000008
+Length: 80, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.659650Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.542606Z&quot;}" data-execution_count="19">
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/bgulowaty/studia/projekty/quad-splits/.venv/lib/python3.8/site-packages/scipy/stats/_morestats.py:3337: UserWarning: Exact p-value calculation does not work if there are zeros. Switching to normal approximation.
+  warnings.warn("Exact p-value calculation does not work if there are "</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">automobile</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">balance</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">banana</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">breast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">car</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">chess</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">ecoli</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">haberman</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">heart</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">mammographic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">mushroom</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">nursery</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">pima</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">shuttle</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">spambase</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">titanic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">vowel</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">wine</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">wisconsin</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">yeast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.681481Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.573881Z&quot;}" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">automobile</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">balance</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">banana</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">breast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">car</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">chess</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">ecoli</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">haberman</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">heart</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">mammographic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">mushroom</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">nursery</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">pima</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">shuttle</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">spambase</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">titanic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">vowel</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">wine</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">wisconsin</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">yeast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">knn</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nb</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.682484Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.587861Z&quot;}" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">automobile</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">balance</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">banana</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">breast</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">car</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">chess</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">ecoli</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">haberman</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">heart</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">mammographic</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">mushroom</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">nursery</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">pima</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">shuttle</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">spambase</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">titanic</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">vowel</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">wine</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">wisconsin</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">yeast</td>
+<td data-quarto-table-cell-role="th">f2</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">n3</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-08T23:24:14.730264Z&quot;,&quot;start_time&quot;:&quot;2023-11-08T23:24:14.610235Z&quot;}" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">automobile</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">balance</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">banana</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">breast</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">car</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">chess</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">ecoli</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">haberman</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">heart</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">mammographic</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">mushroom</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">nursery</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">pima</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">shuttle</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">spambase</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">titanic</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">vowel</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">wine</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">wisconsin</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">yeast</td>
+<td data-quarto-table-cell-role="th">0.1</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.3</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.4</td>
+<td>False</td>
 </tr>
 </tbody>
 </table>
