@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="processing" class="level2">
 <h2 class="anchored" data-anchor-id="processing">Processing</h2>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:20.840836Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:20.726193Z&quot;}" data-execution_count="9">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:30.987475Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:30.980956Z&quot;}" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -92,17 +92,13 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">FINISHED</td>
-<td>958</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">FAILED</td>
-<td>2</td>
+<td>960</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:20.840965Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:20.726323Z&quot;}" data-execution_count="10">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:30.991082Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:30.986424Z&quot;}" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
@@ -119,27 +115,19 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l1</td>
-<td data-quarto-table-cell-role="th">FAILED</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">FINISHED</td>
-<td>319</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">l2</td>
+<td data-quarto-table-cell-role="th">l1</td>
 <td data-quarto-table-cell-role="th">FINISHED</td>
 <td>320</td>
 </tr>
 <tr class="even">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l3</td>
-<td data-quarto-table-cell-role="th">FAILED</td>
-<td>1</td>
+<td data-quarto-table-cell-role="th">l2</td>
+<td data-quarto-table-cell-role="th">FINISHED</td>
+<td>320</td>
 </tr>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
 <td data-quarto-table-cell-role="th">FINISHED</td>
-<td>319</td>
+<td>320</td>
 </tr>
 </tbody>
 </table>
@@ -151,125 +139,121 @@ ul.task-list li input[type="checkbox"] {
 <section id="better-or-equal-rf" class="level3">
 <h3 class="anchored" data-anchor-id="better-or-equal-rf">Better or equal RF</h3>
 <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">(with default params - 100 estimators)</a></p>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:20.964663Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:20.726374Z&quot;}" data-execution_count="12">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.063703Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:30.997200Z&quot;}" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <p><strong>All across</strong></p>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>0.1941544885177453</code></pre>
+<pre><code>0.19375</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><strong>Grouped by complexity_measure and base_clf</strong></p>
+<p><strong>Better or equal to RF - grouped by complexity_measure and base_clf</strong></p>
 </div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_equal_rf</th>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th">dt</th>
+<th data-quarto-table-cell-role="th">perceptron</th>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">params.complexity_measure</th>
-<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l1</td>
-<td data-quarto-table-cell-role="th">dt</td>
-<td>0.293750</td>
+<td data-quarto-table-cell-role="th">l1</td>
+<td>0.29375</td>
+<td>0.1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.100629</td>
+<td data-quarto-table-cell-role="th">l2</td>
+<td>0.29375</td>
+<td>0.1</td>
 </tr>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l2</td>
+<td data-quarto-table-cell-role="th">l3</td>
+<td>0.27500</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.293750</td>
+<td>0.279167</td>
+<td>0.295833</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
 <td>0.100000</td>
+<td>0.100000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.05</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.3</th>
+<th data-quarto-table-cell-role="th">0.4</th>
 </tr>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.275000</td>
+<td>0.391667</td>
+<td>0.4</td>
+<td>0.15</td>
+<td>0.208333</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.100629</td>
+<td>0.100000</td>
+<td>0.1</td>
+<td>0.10</td>
+<td>0.100000</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="cell-output cell-output-display">
-<p><strong>Grouped by min_samples allowed in split/subspace</strong></p>
-</div>
-<div class="cell-output cell-output-display">
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_equal_rf</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">params.min_samples</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>0.190377</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
-<td>0.197917</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output cell-output-display">
-<p><strong>Grouped by min_split_percentage for the point to be considered as split</strong></p>
-</div>
-<div class="cell-output cell-output-display">
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_equal_rf</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.05</td>
-<td>0.245833</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.1</td>
-<td>0.250000</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.3</td>
-<td>0.125523</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.4</td>
-<td>0.154812</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output cell-output-display">
-<p><strong>Grouped by base_clf trained in the split</strong></p>
+<p><strong>Better or equal to RF - grouped by base_clf trained in the split</strong></p>
 </div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -286,11 +270,11 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.287500</td>
+<td>0.2875</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.100418</td>
+<td>0.1000</td>
 </tr>
 </tbody>
 </table>
@@ -299,125 +283,120 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="better-than-dt-with-default-params---no-max-depth" class="level3">
 <h3 class="anchored" data-anchor-id="better-than-dt-with-default-params---no-max-depth">Better than DT <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">(with default params - no max depth)</a></h3>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:20.966687Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:20.871894Z&quot;}" data-execution_count="13">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.140971Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.017012Z&quot;}" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <p><strong>All across</strong></p>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>0.15553235908141963</code></pre>
+<pre><code>0.15520833333333334</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><strong>Grouped by complexity_measure and base_clf</strong></p>
+<p><strong>Better than DT - grouped by complexity_measure and base_clf</strong></p>
 </div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_than_dt</th>
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">params.complexity_measure</th>
 <th data-quarto-table-cell-role="th">params.base_clf</th>
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l1</td>
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.168750</td>
+<td>0.16875</td>
+<td>0.15625</td>
+<td>0.13750</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.150943</td>
+<td>0.15000</td>
+<td>0.16250</td>
+<td>0.15625</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
 </tr>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l2</td>
-<td data-quarto-table-cell-role="th">dt</td>
-<td>0.156250</td>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">perceptron</td>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.145833</td>
 <td>0.162500</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.158333</td>
+<td>0.154167</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.05</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.3</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
 <tr class="odd">
-<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">l3</td>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">dt</td>
-<td>0.137500</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.341667</td>
+<td>0.275000</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.157233</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>0.183333</td>
+<td>0.241667</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="cell-output cell-output-display">
-<p><strong>Grouped by min_samples allowed in split/subspace</strong></p>
-</div>
-<div class="cell-output cell-output-display">
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_than_dt</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">params.min_samples</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>0.152720</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
-<td>0.158333</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output cell-output-display">
-<p><strong>Grouped by min_split_percentage for the point to be considered as split</strong></p>
-</div>
-<div class="cell-output cell-output-display">
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">better_than_dt</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.05</td>
-<td>0.050000</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.1</td>
-<td>0.050000</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.3</td>
-<td>0.263598</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.4</td>
-<td>0.259414</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output cell-output-display">
-<p><strong>Grouped by base_clf trained in the split</strong></p>
+<p><strong>Better than DT - grouped by base_clf trained in the split</strong></p>
 </div>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -438,18 +417,161 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">perceptron</td>
-<td>0.156904</td>
+<td>0.156250</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.040859Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:20.939104Z&quot;}" data-execution_count="16">
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x149662c10&gt;</code></pre>
+</section>
+<section id="better-than-perceptron" class="level3">
+<h3 class="anchored" data-anchor-id="better-than-perceptron">Better than perceptron</h3>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.162725Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.035244Z&quot;}" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<p><strong>All across</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0.596875</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by complexity_measure and base_clf</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.825</td>
+<td>0.81875</td>
+<td>0.80625</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.375</td>
+<td>0.37500</td>
+<td>0.38125</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.8125</td>
+<td>0.820833</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.3750</td>
+<td>0.379167</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.05</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.3</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.791667</td>
+<td>0.8</td>
+<td>0.900000</td>
+<td>0.775</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.000000</td>
+<td>0.0</td>
+<td>0.708333</td>
+<td>0.800</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by base_clf trained in the split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">better_than_perceptron</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.816667</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">perceptron</td>
+<td>0.377083</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.868960Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:21.391417Z&quot;}" data-execution_count="22">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.170803Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.064565Z&quot;}" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x10733df70&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.520011Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.282012Z&quot;}" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <p>Diff to DT (perceptron)</p>
 </div>
@@ -556,9 +678,9 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">spambase</td>
-<td>-0.034627</td>
+<td>-0.040082</td>
 <td>-0.043614</td>
-<td>-0.026242</td>
+<td>-0.030571</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">titanic</td>
@@ -737,7 +859,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.869262Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:21.462039Z&quot;}" data-execution_count="23">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.520136Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.308997Z&quot;}" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <p>Percentage of better than dt</p>
 </div>
@@ -771,14 +893,14 @@ ul.task-list li input[type="checkbox"] {
 <td data-quarto-table-cell-role="th">perceptron</td>
 <td>10.0</td>
 <td>10.0</td>
-<td>18.487395</td>
-<td>24.369748</td>
+<td>18.333333</td>
+<td>24.166667</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.869666Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:21.476218Z&quot;}" data-execution_count="24">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.520624Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.316655Z&quot;}" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <p>Mean acc better than DF (perceptron)</p>
 </div>
@@ -923,7 +1045,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.870190Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:21.497625Z&quot;}" data-execution_count="25">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.520880Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.329548Z&quot;}" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <p>Mean better than DF (perceptron)</p>
 </div>
@@ -1090,7 +1212,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-16T23:33:21.956685Z&quot;,&quot;start_time&quot;:&quot;2023-11-16T23:33:21.516995Z&quot;}" data-execution_count="26">
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-17T08:51:31.521334Z&quot;,&quot;start_time&quot;:&quot;2023-11-17T08:51:31.343937Z&quot;}" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <p>Wilcoxon &lt; 0.05</p>
 </div>
@@ -1343,7 +1465,7 @@ ul.task-list li input[type="checkbox"] {
 <td data-quarto-table-cell-role="th">perceptron</td>
 <td>True</td>
 <td>True</td>
-<td>False</td>
+<td>True</td>
 <td>False</td>
 </tr>
 <tr class="odd">
