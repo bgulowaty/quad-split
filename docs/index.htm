@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quad-split</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="results-analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="results-analysis_files/libs/quarto-html/quarto.js"></script>
+<script src="results-analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="results-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="results-analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="results-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="results-analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="results-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="results-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="results-analysis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quad-split</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>recursive subspace split</p>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How it works:</h2>
+<ol type="1">
+<li>For every feature consider all values as splitting axis (eg. If we have samples: [[1,2], [3,4]] then we would consider two features: F1 with points: 1,3 and F2 with points 2,3</li>
+<li>For every point split the feature space (so we have “left” and “right” subspaces). Only split that fulfil <code>minimal_split_percentage</code> criterion are considered (eg. if <code>minimal_split_percentage</code> is 0.1, then in either of the sides there needs to be at least 10% of samples) For every subspace calculate complexity using complexity metrics (https://arxiv.org/abs/1808.03591) using OVO approach if there are multiple classes. As a result, for every point we have sum of complexities for both subspaces.</li>
+<li>Select point which offers lowest complexity after split</li>
+<li>For left and right subspaces, repeat the process recursively UNTIL there are no more splitting points (due to <code>minimal_split_percentage</code>) or <code>min_samples</code> was reached.</li>
+<li>In each of subpaces <code>base_clf</code> is trained. Or if subspace is “pure” (contains only samples of one class) its using DummyClassifier - all samples are according to the pure class</li>
+</ol>
+</section>
+<section id="processing" class="level2">
+<h2 class="anchored" data-anchor-id="processing">Processing</h2>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:48.908665Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:48.898478Z&quot;}" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Index(['run_id', 'experiment_id', 'status', 'artifact_uri', 'start_time',
+       'end_time', 'metrics.actual_min_split_percentage',
+       'metrics.simple_areas', 'metrics.acc', 'metrics.statements_size',
+       'metrics.no_statements', 'params.min_samples',
+       'params.neighbors_in_learning', 'params.base_clf',
+       'params.min_split_percentage', 'params.train_path',
+       'params.oversampling_in_splitting', 'params.complexity_measure',
+       'tags.mlflow.runName', 'tags.exception'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:48.968890Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:48.948101Z&quot;}" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">status</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">FINISHED</td>
+<td>2562</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">FAILED</td>
+<td>318</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:48.975769Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:48.966797Z&quot;}" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Index(['status', 'metrics.actual_min_split_percentage', 'metrics.simple_areas',
+       'metrics.statements_size', 'metrics.acc', 'metrics.rf_acc',
+       'metrics.dt_acc', 'metrics.perceptron_acc', 'metrics.no_statements',
+       'params.train_path', 'params.min_samples', 'params.base_clf',
+       'params.min_split_percentage', 'params.neighbors_in_learning',
+       'params.complexity_measure', 'params.oversampling_in_splitting',
+       'tags.exception', 'better_equal_rf', 'better_than_dt',
+       'better_than_perceptron'],
+      dtype='object')</code></pre>
+</div>
+</div>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<section id="better-or-equal-rf" class="level3">
+<h3 class="anchored" data-anchor-id="better-or-equal-rf">Better or equal RF</h3>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">(with default params - 100 estimators)</a></p>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:49.041129Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:48.984733Z&quot;}" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<p><strong>All across</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0.23145979703356753</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by complexity_measure and base_clf</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th">dt</th>
+<th data-quarto-table-cell-role="th">svm</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l1</td>
+<td>0.221294</td>
+<td>0.240625</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l2</td>
+<td>0.225000</td>
+<td>0.239264</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>0.220833</td>
+<td>0.247379</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.221140</td>
+<td>0.223611</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.232975</td>
+<td>0.253097</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.398611</td>
+<td>0.045897</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.350000</td>
+<td>0.136767</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better or equal to RF - grouped by base_clf trained in the split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">better_equal_rf</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.222377</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.243099</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="better-than-dt-with-default-params---no-max-depth" class="level3">
+<h3 class="anchored" data-anchor-id="better-than-dt-with-default-params---no-max-depth">Better than DT <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">(with default params - no max depth)</a></h3>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:49.203092Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:49.028141Z&quot;}" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<p><strong>All across</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0.156128024980484</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by complexity_measure and base_clf</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.056367</td>
+<td>0.060417</td>
+<td>0.068750</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.275000</td>
+<td>0.285276</td>
+<td>0.272537</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.058414</td>
+<td>0.065278</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.259857</td>
+<td>0.293805</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.00</td>
+<td>0.123783</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.35</td>
+<td>0.204263</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than DT - grouped by base_clf trained in the split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">better_than_dt</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.061849</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.276937</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="better-than-perceptron" class="level3">
+<h3 class="anchored" data-anchor-id="better-than-perceptron">Better than perceptron</h3>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:49.640869Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:49.096187Z&quot;}" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<p><strong>All across</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0.7591725214676034</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by complexity_measure and base_clf</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.776618</td>
+<td>0.775000</td>
+<td>0.781250</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.737500</td>
+<td>0.733129</td>
+<td>0.735849</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by min_samples allowed in split/subspace</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_samples</th>
+<th data-quarto-table-cell-role="th">10</th>
+<th data-quarto-table-cell-role="th">25</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.773296</td>
+<td>0.781944</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.727599</td>
+<td>0.743363</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by min_split_percentage for the point to be considered as split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.797222</td>
+<td>0.757997</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.700000</td>
+<td>0.770870</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><strong>Better than perceptron - grouped by base_clf trained in the split</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">better_than_perceptron</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.777623</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>0.735530</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:49.746625Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:49.143394Z&quot;}" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<p><strong>Accuracy</strong></p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">metrics.acc</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.neighbors_in_learning</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>0.764623</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>0.763488</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">None</td>
+<td>0.779999</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">metrics.acc</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.oversampling_in_splitting</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">None</td>
+<td>0.767662</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SMOTE</td>
+<td>0.768426</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.oversampling_in_splitting</th>
+<th data-quarto-table-cell-role="th">None</th>
+<th data-quarto-table-cell-role="th">SMOTE</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l1</td>
+<td>0.769359</td>
+<td>0.769993</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l2</td>
+<td>0.769914</td>
+<td>0.771562</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>0.764370</td>
+<td>0.764456</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.neighbors_in_learning</th>
+<th data-quarto-table-cell-role="th">20</th>
+<th data-quarto-table-cell-role="th">5</th>
+<th data-quarto-table-cell-role="th">None</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l1</td>
+<td>0.763814</td>
+<td>0.763279</td>
+<td>0.794499</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">l2</td>
+<td>0.764410</td>
+<td>0.763681</td>
+<td>0.796491</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">l3</td>
+<td>0.765644</td>
+<td>0.763504</td>
+<td>0.764086</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:50.487171Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:49.982729Z&quot;}" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<p>Diff to DT (perceptron)</p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">automobile</td>
+<td>-3.419118e-01</td>
+<td>-0.345588</td>
+<td>-0.319853</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">balance</td>
+<td>6.900000e-02</td>
+<td>0.069000</td>
+<td>0.074000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">banana</td>
+<td>-3.183962e-01</td>
+<td>-0.323585</td>
+<td>-0.293829</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">breast</td>
+<td>-4.464286e-03</td>
+<td>-0.006696</td>
+<td>-0.002232</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">car</td>
+<td>-2.833333e-01</td>
+<td>-0.283333</td>
+<td>-0.283092</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">chess</td>
+<td>-3.169014e-02</td>
+<td>-0.031690</td>
+<td>-0.032603</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ecoli</td>
+<td>-2.182836e-01</td>
+<td>-0.211589</td>
+<td>-0.215796</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">haberman</td>
+<td>8.196721e-03</td>
+<td>0.007172</td>
+<td>0.008880</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">heart</td>
+<td>-1.944444e-01</td>
+<td>-0.177083</td>
+<td>-0.177469</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mammographic</td>
+<td>4.411765e-02</td>
+<td>0.052941</td>
+<td>0.056863</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mushroom</td>
+<td>-5.936675e-03</td>
+<td>-0.005691</td>
+<td>-0.006157</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">nursery</td>
+<td>-1.728395e-01</td>
+<td>-0.169481</td>
+<td>-0.172389</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pima</td>
+<td>-1.205065e-01</td>
+<td>-0.125000</td>
+<td>-0.119826</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">shuttle</td>
+<td>-2.479740e-02</td>
+<td>-0.025202</td>
+<td>-0.027662</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">spambase</td>
+<td>-2.160326e-02</td>
+<td>-0.021671</td>
+<td>-0.020743</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">titanic</td>
+<td>0.000000e+00</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">vowel</td>
+<td>-2.136995e-01</td>
+<td>-0.191919</td>
+<td>-0.215278</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">wine</td>
+<td>2.775558e-17</td>
+<td>-0.004902</td>
+<td>-0.002315</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">wisconsin</td>
+<td>2.518657e-02</td>
+<td>0.025187</td>
+<td>0.014303</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">yeast</td>
+<td>-7.791385e-02</td>
+<td>-0.080870</td>
+<td>-0.078407</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p>Diff to DT (dt)</p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">automobile</td>
+<td>-0.063725</td>
+<td>-6.617647e-02</td>
+<td>-0.068627</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">balance</td>
+<td>-0.002000</td>
+<td>-3.333333e-04</td>
+<td>0.001000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">banana</td>
+<td>-0.019615</td>
+<td>-1.875000e-02</td>
+<td>-0.017138</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">breast</td>
+<td>-0.002232</td>
+<td>1.387779e-17</td>
+<td>-0.000744</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">car</td>
+<td>-0.042271</td>
+<td>-4.227053e-02</td>
+<td>-0.042271</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">chess</td>
+<td>-0.019301</td>
+<td>-1.930099e-02</td>
+<td>-0.019301</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ecoli</td>
+<td>-0.069652</td>
+<td>-7.089552e-02</td>
+<td>-0.074005</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">haberman</td>
+<td>-0.012295</td>
+<td>-1.140413e-02</td>
+<td>-0.001426</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">heart</td>
+<td>-0.047840</td>
+<td>-5.475040e-02</td>
+<td>-0.048611</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mammographic</td>
+<td>0.002046</td>
+<td>-2.205882e-03</td>
+<td>0.001961</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mushroom</td>
+<td>-0.000806</td>
+<td>-8.062152e-04</td>
+<td>-0.000806</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">nursery</td>
+<td>-0.024820</td>
+<td>-2.481996e-02</td>
+<td>-0.024820</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pima</td>
+<td>-0.066993</td>
+<td>-6.072985e-02</td>
+<td>-0.058551</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">shuttle</td>
+<td>-0.000726</td>
+<td>-7.040837e-04</td>
+<td>-0.000747</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">spambase</td>
+<td>-0.022543</td>
+<td>-2.296196e-02</td>
+<td>-0.020335</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">titanic</td>
+<td>-0.000758</td>
+<td>-7.575758e-04</td>
+<td>-0.000758</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">vowel</td>
+<td>0.004209</td>
+<td>7.154882e-03</td>
+<td>0.003788</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">wine</td>
+<td>-0.067130</td>
+<td>-6.712963e-02</td>
+<td>-0.067130</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">wisconsin</td>
+<td>-0.005286</td>
+<td>-6.529851e-03</td>
+<td>-0.006841</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">yeast</td>
+<td>-0.015484</td>
+<td>-9.712838e-03</td>
+<td>-0.013091</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:50.551347Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:50.164618Z&quot;}" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<p>Percentage of better than dt</p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dt</td>
+<td>0.0</td>
+<td>12.378303</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>35.0</td>
+<td>20.426288</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:50.790159Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:50.178123Z&quot;}" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<p>Mean acc better than DF (perceptron)</p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.complexity_measure</th>
+<th data-quarto-table-cell-role="th">l1</th>
+<th data-quarto-table-cell-role="th">l2</th>
+<th data-quarto-table-cell-role="th">l3</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">automobile</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">balance</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">banana</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">breast</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">car</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">chess</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ecoli</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">haberman</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">heart</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mammographic</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mushroom</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">nursery</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pima</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">shuttle</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">spambase</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">titanic</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">vowel</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">wine</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">wisconsin</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">yeast</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:50.804830Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:50.219093Z&quot;}" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<p>Mean better than DF (perceptron)</p>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">automobile</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">balance</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">banana</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">breast</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">car</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">chess</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ecoli</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">haberman</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">heart</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mammographic</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mushroom</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">nursery</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">pima</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">shuttle</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">spambase</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">titanic</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">vowel</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">wine</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">wisconsin</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">yeast</td>
+<td>False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-executetime="{&quot;end_time&quot;:&quot;2023-11-27T23:09:50.859505Z&quot;,&quot;start_time&quot;:&quot;2023-11-27T23:09:50.251887Z&quot;}" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<p>Wilcoxon &lt; 0.05</p>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/bgulowaty/studia/projekty/quad-splits/.venv/lib/python3.8/site-packages/scipy/stats/_morestats.py:3337: UserWarning: Exact p-value calculation does not work if there are zeros. Switching to normal approximation.
+  warnings.warn("Exact p-value calculation does not work if there are "</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">params.min_split_percentage</th>
+<th data-quarto-table-cell-role="th">0.1</th>
+<th data-quarto-table-cell-role="th">0.4</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">dataset_name</th>
+<th data-quarto-table-cell-role="th">params.base_clf</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">automobile</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">balance</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">banana</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">breast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">car</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">chess</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">ecoli</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">haberman</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">heart</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">mammographic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">mushroom</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">nursery</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">pima</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">shuttle</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">spambase</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">titanic</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">vowel</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">wine</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">wisconsin</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">yeast</td>
+<td data-quarto-table-cell-role="th">dt</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">svm</td>
+<td>True</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
