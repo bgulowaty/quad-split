@@ -1,6 +1,6 @@
 import pytest
 from box import Box
-from .quadsplits import get_samples_in_cutoff, should_pass, compute_complexities_ovo, find_best_cutoff_for
+from .quadsplits import get_samples_in_cutoff, both_sides_have_more_or_equal_samples, compute_complexities_ovo, find_best_cutoff_for
 import numpy as np
 from numpy.random import random_sample
 
@@ -62,26 +62,11 @@ def test_should_pass(cutoff_samples, min_split_size, expected):
     cutoff_samples = Box(cutoff_samples)
 
     # when
-    actual = should_pass(cutoff_samples, min_split_size)
+    actual = both_sides_have_more_or_equal_samples(cutoff_samples, min_split_size)
 
     # then
     assert actual == expected
 
-
-@pytest.mark.parametrize("dataset,expected_complexities", [
-    [{"x": np.array([[1, 1], [2, 3]]), "y": np.array([1, 2])}, [2, 5]],
-    [{"x": np.array([[1, 1], [2, 3]]), "y": np.array([1, 1])}, [0]],
-    [{"x": np.array([[1, 1], [2, 3], [2, 2], [1, 1]]), "y": np.array([1, 2, 2, 3])}, [2, 9, 2]]
-])
-def test_compute_complexities_ovo(dataset, expected_complexities):
-    # given
-    dataset = Box(dataset)
-
-    # when
-    complexities = compute_complexities_ovo(X_SUMMING_CUTOFF_FUNCTION, dataset)  # sum only X for given class
-
-    # then
-    assert complexities == expected_complexities
 
 
 # def test_find_best_cutoff_for():

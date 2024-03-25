@@ -2,7 +2,7 @@ import numpy as np
 from loguru import logger as log
 from box import Box
 import problexity as px
-from mlutils.scikit.ovo import ovo
+from sklearn.metrics import accuracy_score
 
 NO_COMPLEXITY = 0
 
@@ -30,8 +30,8 @@ def find_best_cutoff_for(dataset, dimension, minimal_split_percentage=0.1, cutof
 
         x_oversampled, y_oversampled = oversampling_function(it.left.x, it.left.y)
         try:
-            left_complexities = ovo(cutoff_function, x_oversampled, y_oversampled)
-            right_complexities = ovo(cutoff_function, x_oversampled, y_oversampled)
+            left_complexities = compute_complexities_ovo(cutoff_function, x_oversampled, y_oversampled)
+            right_complexities = compute_complexities_ovo(cutoff_function, x_oversampled, y_oversampled)
 
         except Exception as e:
             log.exception(e)
@@ -49,6 +49,42 @@ def find_best_cutoff_for(dataset, dimension, minimal_split_percentage=0.1, cutof
     return lowest_complexity_by_sum.cutoff, lowest_complexity_by_sum.left_complexity + lowest_complexity_by_sum.right_complexity
 
 
+# replace with library
+def compute_complexities_ovo(cutoff_function, x, y):
+    complexities = []
+
+    for label in np.unique(y):
+        ovo_y = y.copy()
+        negative_idx = ovo_y != label
+        positive_idx = ovo_y == label
+
+        ovo_y[negative_idx] = 0
+        ovo_y[positive_idx] = 1
+
+        if len(np.unique(ovo_y)) != 1:
+            complexity = cutoff_function(x, ovo_y)
+            complexities.append(complexity)
+        else:
+            complexities.append(NO_COMPLEXITY)
+
+    return complexities
+
+
+def metric_based_on_rf(rf):
+    trees = rf.estimators_
+
+    def metric(x, y):
+        best_acc = 0
+
+        for tree in trees:
+            tree_acc = accuracy_score(tree.predict(x), y)
+
+            if tree_acc > best_acc:
+                best_acc = tree_acc
+
+        return best_acc
+
+    return metric
 
 def recursive_cutoff(dataset, current_conditions=None, recursion_level=0, min_samples=10, recursion_limit=4,
                      minimal_split_percentage=0.1, complexity_measure=px.f2, oversampling_function=lambda x,y: (x,y)):
