@@ -17,10 +17,10 @@ def find_best_cutoff_for(dataset, dimension, minimal_split_percentage=0.1, cutof
     samples_in_cutoffs = get_samples_in_cutoff(dataset, dimension)
 
     min_split_size = len(dataset.x) * minimal_split_percentage
-    log.info("min split percentage={}, size={}", minimal_split_percentage, min_split_size)
+    log.debug("min split percentage={}, size={}", minimal_split_percentage, min_split_size)
 
     samples_filtered_by_min_split_size = filter_by_min_split_size(min_split_size, samples_in_cutoffs)
-    log.trace("len(cutoffs_filtered)={}", len(samples_filtered_by_min_split_size))
+    log.debug("len(cutoffs_filtered)={}", len(samples_filtered_by_min_split_size))
 
     if not samples_filtered_by_min_split_size:
         return None
@@ -88,20 +88,20 @@ def metric_based_on_rf(rf):
 
 def recursive_cutoff(dataset, current_conditions=None, recursion_level=0, min_samples=10, recursion_limit=4,
                      minimal_split_percentage=0.1, complexity_measure=px.f2, oversampling_function=lambda x,y: (x,y)):
-    log.info("Recursion level = {}", recursion_level)
+    log.debug("Recursion level = {}", recursion_level)
 
     if current_conditions is None:
         current_conditions = list()
 
     if recursion_limit != -1 and recursion_level >= recursion_limit:
-        log.info("recursion limit reached={}", recursion_level)
+        log.debug("recursion limit reached={}", recursion_level)
         return {" and ".join(current_conditions)}
 
     recursion_level = recursion_level + 1
     log.debug("Recursion level = {}", recursion_level)
 
     if len(dataset.x) < min_samples:
-        log.info("min_samples limit reached {} < {}", len(dataset.x), min_samples)
+        log.debug("min_samples limit reached {} < {}", len(dataset.x), min_samples)
         return {" and ".join(current_conditions)}
 
     features_count = dataset.x.shape[1]
